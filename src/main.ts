@@ -4,6 +4,9 @@ import { AppModule } from './app.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 async function bootstrap() {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not defined');
+  }
   const app = await NestFactory.create(AppModule);
 
   // CORS más restrictivo para producción
